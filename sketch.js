@@ -1,59 +1,107 @@
+/*
+	new design 
+    patterns pink with button
+	assigment 6
+*/
 
-var x=0;
-var y=0;
-var speed=3;
-var yspeed=5;
-
+/* global var */
+var bg = "green";
+var g = 155;
+var columns = 25;
+var rows = 25;
+var sw = 25;
 
 function setup() {
+	createCanvas(windowWidth, windowHeight/2);
+	pattern();
+
+	var button = createButton("Save");
+	button.mousePressed(saveImage);
+	button.style('font-family', 'ariel');
+	button.id('my-button');
+	button.class('pattern');
+
 	
-	createCanvas(600,400);
+	var generatePattern = createButton("create pattern");
+	generatePattern.mousePressed(pattern);
+	generatePattern.class('pattern');
 
+	
+	// slider
+	createDiv("mag button");
+	var columnSlider = createSlider(8, 30, columns);
+	columnSlider.input(setColumn);
+	
+	
+	
+	createDiv("scramble");
+	var colorSlider = createSlider(10, 35, g);
+	colorSlider.input(setColor);
+	
+	
 }
 
-function draw() {
-	background(0);
-
-//color change
-  if (x> width/2){
-    stroke(255,0,0);
-  }
-  else {
-    stroke (0,255,0);
-  }
-
-  if (y> height/2){
-    fill( random(205), random(2),random(2) ) ;
-  }
-  else {
-    fill (10,255,9);
-  }
-
-
-
-	strokeWeight(4);
-	//noFill();
-	ellipse(x, y,100,100);
-   
-
-  if (x> width){
-    speed= random(-20,-1);
-  }
-
-  if (x < 0){
-  	speed= random(1,10);
-  }
-  if (y > height){
-  	yspeed= random(-15,-1);
-  }
-
-  if (y < 0){
-  	yspeed= random(2,15);
-  }
-
- x=x + speed;
- y=y + yspeed;
-
- console.log("x postition"+x);
-
+function setColumn() {
+	columns = this.value();
+    sw = map(this.value(), 4, 8, 8, 4);
+	pattern();
 }
+
+function setColor() {
+	g = this.value();
+	pattern();
+}
+
+function pattern() {
+	background("green"); 
+    
+	var w = width / columns;
+	var h = height / rows;
+	
+	for (let x = 0; x <= width; x += w) {
+		for (let y = 0; y <= height; y += h) {
+			
+			
+			
+			strokeWeight(10);
+    var r = random(5);
+    if (r > 2) {
+                
+                
+        
+    fill("red");
+    ellipse(x + w - w/2, y + h - h/2, w/2, h/2); //back circle 
+    } else {
+        
+    stroke(0);
+    fill("pink");
+    ellipse(x+w/9, y+h/9, w*2, h); //pink circle
+            
+            
+        
+    fill("white");
+    ellipse(x + w/2, y + h - h*2, w, h/2); //bottom  
+                                
+            
+  
+                
+				
+			}
+			
+			
+		}
+	}
+}
+
+function saveImage() {
+	save("pattern.png");
+}
+
+
+
+
+
+
+
+
+
