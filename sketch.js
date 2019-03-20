@@ -63,7 +63,7 @@ function pattern() {
 			
 			
 			
-			strokeWeight(10);
+			strokeWeight(6);
     var r = random(5);
     if (r > 2) {
                 
